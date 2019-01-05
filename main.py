@@ -103,13 +103,9 @@ def fit_linear(filename):
       new_data.append(lower_line)
    for number_of_row in range(0,len(new_data)-3):
       split_line=new_data[number_of_row].split(' ')
-      #print(split_line)
       only_data.append(split_line)
-   #print('this is only_data',  only_data)
    big_list=clear_white_spaces(only_data)#out with the white spaces
-   #print(big_list)
    in_row_data=if_it_is_rows(big_list)# now data is in rows
-   #print(in_row_data)
    if len(in_row_data)<4: #if there is a length problem in col
       return'Input file error: Data lists are not the same length.'
    else:
@@ -122,7 +118,6 @@ def fit_linear(filename):
          if type(ok_data)==str:
             return ok_data
          else:
-            #print(ok_data)
             x=ok_data['x']
             y=ok_data['y']
             dx=ok_data['dx']
@@ -147,6 +142,5 @@ def fit_linear(filename):
             plt.errorbar(x,x_line,xerr=dx,yerr=dy,fmt='o')
             plt.ylabel(new_data[-1].title())
             plt.xlabel(new_data[-2].title())
-            #plt.show()
             plt.savefig('filename',format='svg')
      
