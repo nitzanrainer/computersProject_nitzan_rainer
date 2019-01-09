@@ -12,11 +12,11 @@ def fit_linear(filename):
         my_list.clear()    
         big_list.append(my_list1)          
     return big_list
-   def if_it_is_rows(new_data):#make it rows
-      if new_data[1][0] == 'x' or new_data[1][0] == 'y' or new_data[1][0] == 'dx' or new_data[1][0] == 'dy':
-         return new_data
+   def if_it_is_rows(nd):#make it rows
+      if nd[1][0] == 'x' or nd[1][0] == 'y' or nd[1][0] == 'dx' or nd[1][0] == 'dy':
+         return nd
       else:
-         fixed_str = [list(i) for i in zip(*new_data)]
+         fixed_str = [list(i) for i in zip(*nd)]
          return fixed_str
    def check_list(data_list):
        if len(data_list[0])==len(data_list[1])==len(data_list[2])==len(data_list[3]):
@@ -129,7 +129,9 @@ def fit_linear(filename):
             b=z_met(y,dy)-a*z_met(x,dy)
             da2=(z_met((sqr_func(dy)),dy))/(len(x)*(z_met(x_sqr,dy)-((z_met(x,dy))**2)))
             da=da2**(0.5)
-            db2=((z_met((sqr_func(dy)),dy))*(z_met(x_sqr,dy)))/(len(x)*(z_met(x_sqr,dy)-((z_met(x,dy))**2)))
+            db2_up=((z_met(dy_sqr,dy))*(z_met(x_sqr,dy)))
+            db2_down=(len(x)*(z_met(x_sqr,dy)-((z_met(x,dy))**2)))
+            db2=db2_up/db2_down
             db=db2**(0.5)
             chi2=chi2_func(a,b,x,dy,y)
             chi2_reduced=chi2/(len(x)-2)
@@ -142,5 +144,5 @@ def fit_linear(filename):
             plt.errorbar(x,x_line,xerr=dx,yerr=dy,fmt='o')
             plt.ylabel(new_data[-1].title())
             plt.xlabel(new_data[-2].title())
-            plt.savefig('filename',format='svg')
-     
+            plt.show()
+            plt.savefig("linear_fit.svg")
