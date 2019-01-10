@@ -144,5 +144,5 @@ def fit_linear(filename):
             plt.errorbar(x,x_line,xerr=dx,yerr=dy,fmt='o')
             plt.ylabel(new_data[-1].title())
             plt.xlabel(new_data[-2].title())
-            plt.show()
+            #plt.show()
             plt.savefig("linear_fit.svg")
