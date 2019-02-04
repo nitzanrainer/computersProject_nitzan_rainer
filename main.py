@@ -16,7 +16,7 @@ def fit_linear(filename):
       if nd[1][0] == 'x' or nd[1][0] == 'y' or nd[1][0] == 'dx' or nd[1][0] == 'dy':
          return nd
       else:
-         fixed_str = [list(i) for i in zip(*nd)]
+         fixed_str = [list(i) for i in zip(*nd)]  #from_the_internet
          return fixed_str
    def check_list(data_list):
        if len(data_list[0])==len(data_list[1])==len(data_list[2])==len(data_list[3]):
