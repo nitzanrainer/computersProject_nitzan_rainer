@@ -127,14 +127,18 @@ def search_best_parameter(filename):
             x_for_line=(j*a)+b
             x_for_line_list.append(x_for_line)
       return(x_for_line_list)
+    def open_file(filename):
+        this_file = open(filename, 'r')
+        data = this_file.readlines() ##a list that every argument is a string of row
+        this_file.close()
+        return data
     from matplotlib import pyplot as plt
     new_data = []
     values_list = []
     only_data = []
     a_b_data=[]
-    this_file = open(filename, 'r')
-    data = this_file.readlines()
-    for line in data:
+    data1= open_file(filename)
+    for line in data1:
       new_line =line.rstrip('\n') #remove'\n'
       lower_line=new_line.lower()
       new_data.append(lower_line)
@@ -145,7 +149,7 @@ def search_best_parameter(filename):
     split_line2=new_data[-2].split(' ')
     only_data.append(split_line2)
     split_line1=new_data[-1].split(' ')
-    #print (split_line1)
+    #print ('this is new data',new_data[-4])
     only_data.append(split_line1)
     # print('this is only_data',  only_data)
     big_list = clear_white_spaces(only_data)  # out with the white spaces
@@ -164,10 +168,9 @@ def search_best_parameter(filename):
             if type(ok_data) == str:
                 return ok_data
             else:
-                #print(ok_data['a'])
                 a_for_dictionary=list_for_a_b(ok_data['a'])
                 ok_data['a']=a_for_dictionary
-                b_for_dictionary=list_for_a_b(ok_data['b'])
+                b_for_dictionary=list_for_a_b(ok_data['b']) 
                 ok_data['b']=b_for_dictionary
                 x = ok_data['x']
                 y = ok_data['y']
@@ -213,19 +216,21 @@ def search_best_parameter(filename):
                 for item_a in ok_data['a']:
                     chi2_b=chi2(y,x,item_a,best_b,dy)
                     chi2_list_for_chart.append(chi2_b)
+                x_line=new_x(x,best_a,best_b)     
+                plt.plot(x,x_line,'r-')
+                plt.errorbar(x,y,xerr=dx,yerr=dy,ecolor='blue',fmt='None')
+                plt.ylabel(new_data[-4].title())
+                plt.xlabel(new_data[-5].title())
+                #plt.show()
+                plt.savefig('linear_fit', format='svg')
                 p='a'
                 q=str(best_b)
                 t=('chi2(a,='+q)
-                plt.plot(ok_data['a'],chi2_list_for_chart, 'b-')
+                plt.plot(ok_data['a'],ok_data['b'], 'b-')
                 plt.ylabel(t.title())
                 plt.xlabel(p.title())
                 #plt.show()
                 plt.savefig('numeric_sampling', format='svg')
-                this_file.close()
-                        
-                
-                                              
-                
 
                 
 
