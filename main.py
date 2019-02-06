@@ -96,7 +96,7 @@ def fit_linear(filename):
       this_file.close()
       return data
 
-   from matplotlib import pyplot as plt 
+   from matplotlib import pyplot as plt #######the start of the function
    new_data = []
    values_list = []
    only_data = []
@@ -146,9 +146,10 @@ def fit_linear(filename):
             print( (z_met(x_sqr,dy)))
             x_line=new_x(x,a,b)
             plt.plot(x,x_line,'r-')
-            plt.errorbar(x,x_line,xerr=dx,yerr=dy,fmt='o')
+            plt.errorbar(x,y,xerr=dx,yerr=dy,ecolor='blue',fmt='None')
             plt.ylabel(new_data[-1].title())
             plt.xlabel(new_data[-2].title())
             #plt.show()
             plt.savefig("linear_fit.svg")
+            
             
