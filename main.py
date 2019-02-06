@@ -146,3 +146,4 @@ def fit_linear(filename):
             plt.xlabel(new_data[-2].title())
             #plt.show()
             plt.savefig("linear_fit.svg")
+            filename.close()
