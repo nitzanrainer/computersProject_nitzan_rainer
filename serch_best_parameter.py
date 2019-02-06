@@ -219,8 +219,9 @@ def search_best_parameter(filename):
                 plt.plot(ok_data['a'],chi2_list_for_chart, 'b-')
                 plt.ylabel(t.title())
                 plt.xlabel(p.title())
-                plt.show()
+                #plt.show()
                 plt.savefig('numeric_sampling', format='svg')
+                this_file.close()
                         
                 
                                               
