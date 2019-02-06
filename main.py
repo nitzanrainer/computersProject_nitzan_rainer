@@ -143,7 +143,7 @@ def fit_linear(filename):
             print('b=',b,'+-',db)
             print('chi2=',chi2)
             print('chi2_reducuced=',chi2_reduced)
-            print( (z_met(x_sqr,dy)))
+            #print( (z_met(x_sqr,dy)))
             x_line=new_x(x,a,b)
             plt.plot(x,x_line,'r-')
             plt.errorbar(x,y,xerr=dx,yerr=dy,ecolor='blue',fmt='None')
