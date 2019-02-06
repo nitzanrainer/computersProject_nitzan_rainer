@@ -220,7 +220,7 @@ def search_best_parameter(filename):
                 plt.ylabel(t.title())
                 plt.xlabel(p.title())
                 plt.show()
-                plt.savefig('filename', format='svg')
+                plt.savefig('numeric_sampling', format='svg')
                         
                 
                                               
@@ -232,4 +232,3 @@ def search_best_parameter(filename):
 
 
 
-print(search_best_parameter('./input_b.txt'))
