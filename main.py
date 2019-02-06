@@ -16,9 +16,9 @@ def fit_linear(filename):
       if nd[1][0] == 'x' or nd[1][0] == 'y' or nd[1][0] == 'dx' or nd[1][0] == 'dy':
          return nd
       else:
-         fixed_str = [list(i) for i in zip(*nd)]  #from_the_internet
+         fixed_str = [list(i) for i in zip(*nd)]
          return fixed_str
-   def check_list(data_list):
+   def check_list(data_list): #check length
        if len(data_list[0])==len(data_list[1])==len(data_list[2])==len(data_list[3]):
            for item in data_list:
                for letter in range(1,len(item)):
@@ -40,7 +40,7 @@ def fit_linear(filename):
             mid_float_list.clear()
             data_dictionary[lines[0]] = mid1_float_list
          return data_dictionary         
-   def check_uncertainties(data_dictionary):
+   def check_uncertainties(data_dictionary):###see if there are any uncertainties
        dx_values=data_dictionary.get('dx')
        dy_values=data_dictionary.get('dy')
        for dx in dx_values:
@@ -67,7 +67,7 @@ def fit_linear(filename):
             new_xy=x[item]*y[item]
             xy_list.append(new_xy)
       return xy_list
-   def z_met(z, dy):
+   def z_met(z, dy):### average from insturctiomn (6)
     up_sum = 0
     down_sum = 0
     for item in range (len(z)):
@@ -78,30 +78,34 @@ def fit_linear(filename):
         down_sum = down_sum + down_z_met
     z = up_sum / down_sum
     return z
-   def chi2_func(a,b,x,dy,y):
+   def chi2_func(a,b,x,dy,y):##calculate chi2
       chi2=0
       for item in range (len(x)):
             chi=((y[item]-(a*x[item]+b))/dy[item])**2
             chi2=chi+chi2
       return chi2
-   def new_x(x,a,b):
+   def new_x(x,a,b):##y for plot
       x_for_line_list=[]
       for j in x:
             x_for_line=(j*a)+b
             x_for_line_list.append(x_for_line)
-      return(x_for_line_list)      
+      return(x_for_line_list)
+   def open_file(filename):
+      this_file = open(filename, 'r')
+      data = this_file.readlines() ##a list that every argument is a string of row
+      this_file.close()
+      return data
 
-   from matplotlib import pyplot as plt
+   from matplotlib import pyplot as plt 
    new_data = []
    values_list = []
    only_data = []
-   this_file = open(filename, 'r')
-   data = this_file.readlines()
-   for line in data:
+   data1=open_file(filename)
+   for line in data1:
       new_line =line.rstrip('\n') #remove'\n'
       lower_line=new_line.lower()
       new_data.append(lower_line)
-   for number_of_row in range(0,len(new_data)-3):
+   for number_of_row in range(0,len(new_data)-3):  ###takes only the data without the axiss
       split_line=new_data[number_of_row].split(' ')
       only_data.append(split_line)
    big_list=clear_white_spaces(only_data)#out with the white spaces
@@ -139,11 +143,12 @@ def fit_linear(filename):
             print('b=',b,'+-',db)
             print('chi2=',chi2)
             print('chi2_reducuced=',chi2_reduced)
+            print( (z_met(x_sqr,dy)))
             x_line=new_x(x,a,b)
             plt.plot(x,x_line,'r-')
             plt.errorbar(x,x_line,xerr=dx,yerr=dy,fmt='o')
             plt.ylabel(new_data[-1].title())
             plt.xlabel(new_data[-2].title())
-            #plt.show()
+            plt.show()
             plt.savefig("linear_fit.svg")
-            filename.close()
+            
